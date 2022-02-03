@@ -7,12 +7,20 @@ snake[0] = {
   y: 8 * box,
 };
 let direction="null";
+let food={
+  x:Math.floor(Math.random()*15+1)*box,
+  y:Math.floor(Math.random()*15+1)*box,
+};
 
 function makeBG() {
   cxt.fillStyle = "lightgreen";
   cxt.fillRect(0, 0, 16 * box, 16 * box);
 }
 
+function makeFood() {
+    cxt.fillStyle='red';
+    cxt.fillRect(food.x,food.y,box,box)
+}
 function makeSnake() {
   for (let i = 0; i < snake.length; i++) {
     cxt.fillStyle = "darkgreen";
@@ -32,6 +40,7 @@ console.log();
 }
 
 function startGame() {
+
   if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
   if (snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
   if (snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
@@ -39,6 +48,7 @@ function startGame() {
 
   makeBG();
   makeSnake();
+  makeFood();
 
   let snakeX = snake[0].x;
   let snakeY = snake[0].y;
