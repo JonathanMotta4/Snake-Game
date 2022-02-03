@@ -1,26 +1,29 @@
 let canvas = document.getElementById("table");
 let cxt = canvas.getContext("2d");
 let box = 32;
-let snake = [];
+let snake = []; //Criei a cobra como um array, já que é só um conjunto de coordenadas que são pintadas depois
 snake[0] = {
   x: 8 * box,
   y: 8 * box,
 };
 let direction = "null";
 let food = {
+  //Definição da posição das frutas
   x: Math.floor(Math.random() * 15 + 1) * box,
   y: Math.floor(Math.random() * 15 + 1) * box,
 };
 
+//Função para criar o fundo do canvas
 function makeBG() {
   cxt.fillStyle = "lightgreen";
   cxt.fillRect(0, 0, 16 * box, 16 * box);
 }
-
+//Função para criar as frutas no canvas
 function makeFood() {
   cxt.fillStyle = "red";
   cxt.fillRect(food.x, food.y, box, box);
 }
+//Função para criar a cobra
 function makeSnake() {
   for (let i = 0; i < snake.length; i++) {
     cxt.fillStyle = "darkgreen";
@@ -30,6 +33,7 @@ function makeSnake() {
 
 document.addEventListener("keydown", update);
 
+//Função que gerencia os movimentos
 function update(event) {
   if (event.keyCode == 37 && direction != "right") direction = "left";
   if (event.keyCode == 38 && direction != "down") direction = "up";
@@ -38,6 +42,7 @@ function update(event) {
   console.log();
 }
 
+//Função para iniciar o jogo
 function startGame() {
 
   if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
@@ -77,4 +82,5 @@ function startGame() {
   snake.unshift(newHead);
 }
 
+//Variável que deixa o jogo em loop
 let time = setInterval(startGame, 100);
