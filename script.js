@@ -6,10 +6,10 @@ snake[0] = {
   x: 8 * box,
   y: 8 * box,
 };
-let direction="null";
-let food={
-  x:Math.floor(Math.random()*15+1)*box,
-  y:Math.floor(Math.random()*15+1)*box,
+let direction = "null";
+let food = {
+  x: Math.floor(Math.random() * 15 + 1) * box,
+  y: Math.floor(Math.random() * 15 + 1) * box,
 };
 
 function makeBG() {
@@ -18,8 +18,8 @@ function makeBG() {
 }
 
 function makeFood() {
-    cxt.fillStyle='red';
-    cxt.fillRect(food.x,food.y,box,box)
+  cxt.fillStyle = "red";
+  cxt.fillRect(food.x, food.y, box, box);
 }
 function makeSnake() {
   for (let i = 0; i < snake.length; i++) {
@@ -35,12 +35,10 @@ function update(event) {
   if (event.keyCode == 38 && direction != "down") direction = "up";
   if (event.keyCode == 39 && direction != "left") direction = "right";
   if (event.keyCode == 40 && direction != "up") direction = "down";
-console.log();
-
+  console.log();
 }
 
 function startGame() {
-
   if (snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
   if (snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
   if (snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
@@ -57,7 +55,13 @@ function startGame() {
   if (direction == "left") snakeX -= box;
   if (direction == "up") snakeY -= box;
   if (direction == "down") snakeY += box;
-  snake.pop();
+
+  if (snakeX != food.x || snakeY != food.y) {
+    snake.pop();
+  }else{
+    food.x=Math.floor(Math.random() * 15 + 1) * box;
+    food.y=Math.floor(Math.random() * 15 + 1) * box;
+  }
 
   let newHead = {
     x: snakeX,
